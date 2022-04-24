@@ -1,12 +1,4 @@
 
-// import getBruinWalkInfo from './webscrape.js';
-
-
-// chrome.runtime.onInstalled.addListener(() => {
-//     // default state goes here
-//     // this runs ONE TIME ONLY (unless the user reinstalls your extension)
-// });
-
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === 'complete' && /^http/.test(tab.url)) {
         chrome.scripting.executeScript({
@@ -23,15 +15,31 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 /**
  * takes message with all info required to search up a teacher
  */
-chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
-    if (request.message === 'get_prof_rating') {
-        try {
-            var response = await getBruinWalkInfo(request.prof);
-            sendResponse(response);
-        } catch (err) {
-            sendResponse(err);
-        }
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.message === 'getProfRating') {
+        fetch(`https://www.bruinwalk.com/search/?category=professors&q=${request.prof}`)
+            .then(response => response.text())
+            .then(html => {
+                var data = scrapeInfo(html);
+                sendResponse(data);
+            });
     } else {
         sendResponse({ message: 'fail' });
     }
+    return true;
 });
+
+function scrapeInfo(html) {
+    if (html == null) throw new Error("Html is null");
+    var colorRegex = /style=\"background-color: ([#|0-9|A-Z]*)\"/
+    var ratingRegex = /<b class=\"rating\">([0-9|.| ]*)<\/b>/;
+    var colorMatch = html.match(colorRegex);
+    var ratingMatch = html.match(ratingRegex);
+
+    var color = colorMatch[1];
+    var rating = ratingMatch[1].replaceAll(' ', '');
+    return {
+        color,
+        rating
+    }
+}
