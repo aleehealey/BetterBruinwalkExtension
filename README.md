@@ -1,4 +1,4 @@
-# NotBruinwalkExtension
+# BetterBruinwalkExtension
 
 To install NotBruinWalkExtension follow the steps below:
 
