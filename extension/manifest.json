@@ -1,5 +1,5 @@
 {
-    "name": "Bruinwalk Extension",
+    "name": "Better Bruinwalk Extension",
     "description": "Unofficial Bruinwalk extension",
     "version": "0.1.0",
     "manifest_version": 3,
@@ -13,10 +13,7 @@
     },
     "options_page": "options.html",
     "permissions": [
-        "storage",
-        "activeTab",
-        "scripting",
-        "tabs"
+        "scripting"
     ],
     "host_permissions": [
         "https://be.my.ucla.edu/*",

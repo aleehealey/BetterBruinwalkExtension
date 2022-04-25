@@ -48,6 +48,7 @@ function getA(data) {
     a.style.borderRadius = '5px';
     a.style.padding = '5px';
     a.style.marginLeft = '5px';
+    a.style.display = 'inline-block';
     // a.style
 
     // insert rating
