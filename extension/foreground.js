@@ -12,17 +12,22 @@
 
 // get ratings
 // insert buttons
+var cachedNames = {};
 
 setInterval(() => {
-
     var names = getTeacherNames();
-    var map = {};
+
+    var map = {...cachedNames};
+    // console.log(map);
     var promises = [];
     for (let i = 0; i < names.length; i++) {
+        var name = names[i]
+        if (map.hasOwnProperty(name)) continue;
         var promise = getProfRating(names[i])
             .then(({ res, name }) => {
                 map[name] = res;
                 map[name].name = name;
+                cachedNames = {...map};
             })
         promises.push(promise);
     }
@@ -31,6 +36,7 @@ setInterval(() => {
             insertElements(map);
             // send back to insert into buttons
         })
+    
 }, 1000);
 
 function getProfRating(name) {
