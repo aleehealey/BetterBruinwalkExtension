@@ -17,3 +17,6 @@ To install NotBruinWalkExtension follow the steps below:
 7) Go to the extracted folder
 8) Select the folder called "extension"
 9) YOU'RE DONE! All the power in the world is now in your hands!
+
+If you need more references on how to download this see this blog:
+https://bashvlas.com/blog/install-chrome-extension-in-developer-mode
