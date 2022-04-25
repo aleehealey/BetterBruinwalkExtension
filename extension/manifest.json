@@ -19,8 +19,8 @@
         "tabs"
     ],
     "host_permissions": [
-        "https://www.google.com/*",
-        "https://www.bruinwalk.com/*",
-        "http://localhost:3000/"
+        "https://be.my.ucla.edu/*",
+        "https://sa.ucla.edu/*",
+        "https://www.bruinwalk.com/*"
     ]
 }
