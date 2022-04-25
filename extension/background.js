@@ -49,15 +49,22 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 function scrapeInfo(html) {
     if (html == null) throw new Error("Html is null");
-    var colorRegex = /style=\"background-color: ([#|0-9|A-Z]*)\"/
-    var ratingRegex = /<b class=\"rating\">([0-9|.| |N/A]*)<\/b>/;
-    var colorMatch = html.match(colorRegex);
-    var ratingMatch = html.match(ratingRegex);
-
-    var color = colorMatch[1];
-    var rating = ratingMatch[1].replaceAll(' ', '');
-    return {
-        color,
-        rating
+    try {
+        var colorRegex = /style=\"background-color: ([#|0-9|A-Z]*)\"/
+        var ratingRegex = /<b class=\"rating\">([0-9|.| |N/A]*)<\/b>/;
+        var colorMatch = html.match(colorRegex);
+        var ratingMatch = html.match(ratingRegex);
+    
+        var color = colorMatch[1];
+        var rating = ratingMatch[1].replaceAll(' ', '');
+        return {
+            color,
+            rating
+        }
+    } catch (err) {
+        return {
+            color: 'gray',
+            rating: 'N/A'
+        }
     }
 }
